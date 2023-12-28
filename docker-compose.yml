@@ -1,0 +1,100 @@
+version: '3'
+
+services:
+  # Levantar servicio
+  nginx:
+    image: "nginx:1.25.3-alpine"
+    container_name: "server"
+    volumes:
+      - ./frontend/dist/:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
+
+    environment:
+      - NGINX_HOST=lauta.com
+      - NGINX_PORT=80
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    # Lautaro del futuro, NO TOQUES ESTO
+    # Para que dos contenedores se intercambien información en necesario que AMBÓS tengan ls red
+    networks:
+      - db
+      - backend # <-- SI O SI este debe conincidir con la base de datos o cualquier contenedor que se conecte al backend
+      - frontend
+
+    # Paso la variable de entorno desde la tarminal ya que aqui no funciona
+    # $ docker-compose --env-file
+    env_file:
+      - ./backend/.env.dev
+
+    container_name: back
+    working_dir: /appa
+
+    volumes:
+      - ./backend/node_modules:/appa/node_modules
+      - ./backend/src/:/appa/src/
+
+    ports:
+      - 3000:${NEST_APP_PORT}
+
+    command: npm run start:dev
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+
+    container_name: mysql
+    restart: always
+
+    volumes:
+      - mysql:/var/lib/mysql
+
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+      - MYSQL_DATABASE=items
+
+    networks:
+      - db
+      - backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react
+    working_dir: /react_app
+
+    networks:
+      - backend # <-- SI O SI este debe conincidir con la base de datos o cualquier contenedor que se conecte al backend
+      - frontend
+
+    volumes:
+      - ./frontend/src:/react_app/src
+      - ./frontend/node_modules:/react_app/node_modules
+
+    ports:
+      - 9000:8000
+
+    depends_on:
+      - backend
+
+    command: npm run dev
+
+volumes:
+  mysql:
+  f_src:
+  f_node_modules:
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+  db:
+    driver: bridge
+

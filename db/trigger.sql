@@ -1,0 +1,13 @@
+DROP TRIGGER a;
+
+DELIMITER $$
+CREATE TRIGGER a
+	AFTER DELETE ON users
+	FOR EACH ROW
+	BEGIN
+		DELETE
+		FROM user_games
+		WHERE user_id = OLD.user_id;
+	END $$
+DELIMITER ;
+
