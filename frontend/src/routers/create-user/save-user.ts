@@ -28,14 +28,14 @@ const User = z.object({
 		}),
 });
 
-function validation({ first_name, last_name, user_name }: FormInput) {
-	return User.safeParse({ first_name, last_name, user_name });
+function validation({ firstname, lastname, username }: FormInput) {
+	return User.safeParse({ first_name: firstname, last_name: lastname, user_name: username });
 }
 
-export function saveUser({ first_name, last_name, user_name }: FormInput) {
+export function saveUser({ firstname, lastname, username }: FormInput) {
 	return validation({
-		first_name,
-		last_name,
-		user_name,
+		firstname,
+		lastname,
+		username
 	});
 }

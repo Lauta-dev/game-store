@@ -6,7 +6,7 @@
  *
  * Esto se ve usando docker inspect "nombre del contenedor"
  */
-const dockerContainerIPAddress = "172.22.0.2";
+const dockerContainerIPAddress = "172.22.0.3";
 const port = 5000;
 
 const server = `http://${dockerContainerIPAddress}:${port}`;
@@ -17,12 +17,14 @@ const authBackendPath = {
 	login: `${user}/login`,
 	create: `${user}/create`,
 	verify: `${user}/verify`,
-	admin: `${user}`
+	verifyAdmin: `${user}/admin`
 };
 
 const gameBackendPath = {
 	getAllGames: `${game}`,
 	saveGame: `${game}/save`,
+	getGameXUser: `${game}/one`,
+	removeGameFromDb: `${game}/remove`
 };
 
 export { authBackendPath, gameBackendPath };

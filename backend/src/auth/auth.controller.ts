@@ -66,8 +66,6 @@ export class AuthController {
   @Get("/admin")
   async admin(@Req() req: Req) {
     const { uuid } = req.user
-    console.log(req.user)
-
     return this.authService.isAdmin({ userId: uuid })
   }
 

@@ -16,7 +16,7 @@ const t =
 
 export function CreateUser() {
 	const [user, setUser] = useState();
-	const [error, setError] = useState<boolean>();
+	const [_, setError] = useState<boolean>();
 	const [created, setCreated] = useState<boolean>(false);
 
 	const setLocation = useLocation()[1];
@@ -65,7 +65,7 @@ export function CreateUser() {
 			const login = await fetching({
 				url: "http://backend:5000/auth/login",
 				method: "POST",
-				body: { userName: user_name },
+				body: { userName: username },
 			});
 
 			new LocalStorage().save({

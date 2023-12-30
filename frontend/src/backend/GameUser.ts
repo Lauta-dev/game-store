@@ -2,7 +2,6 @@ import { gameBackendPath } from "../metadata";
 import { UserToken } from "../util/GetToken";
 import { fetching } from "../util/fetch";
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class GameUser {
 	/*
 	 * # Muestra todos los juegos
@@ -39,5 +38,34 @@ export class GameUser {
 		}
 
 		return true;
+	}
+
+	static async listGamesXUsers(): Promise<any> {
+		const token = UserToken.getToken();
+
+		if (!token) {
+			return false;
+		}
+		const data = await fetching({
+			url: gameBackendPath.getGameXUser,
+			method: "GET",
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		return data
+	}
+
+	static async removeGameFromDb(gameId: string) {
+		const token = UserToken.getToken();
+
+		const data = await fetching({
+			url: gameBackendPath.removeGameFromDb,
+			method: "DELETE",
+			body: { gameId },
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		return data
+
 	}
 }

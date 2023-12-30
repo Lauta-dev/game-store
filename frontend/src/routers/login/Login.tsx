@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LocalStorage } from "../../util/LocalStorage";
 import "./spinner.css";
 import { AuthUser } from "../../backend/AuthUser";

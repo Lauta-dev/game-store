@@ -145,16 +145,10 @@ export class UserService {
 
   async isAdmin({ userId }) {
     const user = await this.userEntity.find({ where: { userId } })
-
-    if (user.length < 1) {
-      return false
-    }
-
     if (user[0].rol !== "admin") {
-      return false
+      return { msj: "No tiene permitido ver está página", statusCode: HttpStatus.UNAUTHORIZED, authorized: false }
     }
-
-    return true
+    return { msj: "Tiene permitido ver está página", statusCode: HttpStatus.OK, authorized: true }
   }
 
 }

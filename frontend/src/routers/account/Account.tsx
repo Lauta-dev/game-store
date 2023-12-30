@@ -4,6 +4,7 @@ import { UserToken } from "../../util/GetToken";
 import { Listgame } from "../../interfaces/ListGame";
 import { Table } from "./Table";
 import { Link, useLocation } from "wouter";
+import { GameUser } from "../../backend/GameUser";
 
 function Title({ text }: { text: string }) {
 	return (
@@ -48,11 +49,7 @@ export function Account() {
 	useEffect(() => {
 		async function getGameForUser() {
 			try {
-				const data = await fetching({
-					url: "http://backend:5000/game/one",
-					method: "GET",
-					headers: { Authorization: `Bearer ${token}` },
-				});
+				const data = await GameUser.listGamesXUsers()
 
 				if (data.isError) {
 					setError(data.isError);
@@ -74,12 +71,7 @@ export function Account() {
 		try {
 			setLoadNewGames(true);
 
-			const data = await fetching({
-				url: "http://backend:5000/game/remove",
-				method: "DELETE",
-				body: { gameId },
-				headers: { Authorization: `Bearer ${token}` },
-			});
+			const data = await GameUser.removeGameFromDb(gameId)
 
 			if (data.isError) {
 				return;
@@ -93,7 +85,7 @@ export function Account() {
 				setGames(data.json.games);
 				setLoadNewGames(false);
 			}, 3000);
-		} catch (error) {}
+		} catch (error) { }
 	}
 
 	return (

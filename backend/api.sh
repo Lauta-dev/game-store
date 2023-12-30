@@ -8,11 +8,11 @@ token2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMjczNjExNjktOTRiOC00Njg
 
 tokenl="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMDk3Y2I4ZmEtMWU1OC00MTBmLWJkODQtNjVhNGU2N2U3MmNhIiwiaWF0IjoxNzAzMjczMzY3LCJleHAiOjE3MzQ4MzA5Njd9.x4Q8kmNat3CWv5v3qikSGcAUtjr_7gGcr1AAO4-71hU"
 
-adminToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMTU5NjVkNmEtYTRmMy0xMWVlLTg0OWQtMDI0MmFjMTcwMDAyIiwiaWF0IjoxNzAzNzA4MDUzLCJleHAiOjE3MzUyNjU2NTN9.jLS3nOGIUJXywqDEyOGrxPgl04Jsm0jPUkgedeBUrKY"
+adminToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiODE5ZjJhYTUtYTZhYi0xMWVlLThhMjktMDI0MmFjMTMwMDAyIiwiaWF0IjoxNzAzODk3Nzg0LCJleHAiOjE3MzU0NTUzODR9.HK5_Y_zk367E7kGkb0KgoMJgpnH0V7TCH0Copw8SBHQ"
 
-normalUserToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiODZmYTgzY2MtMDZiZi00OTUxLTg0MzMtMGY1ZWE1NzYzNjllIiwiaWF0IjoxNzAzNzEyNDc2LCJleHAiOjE3MzUyNzAwNzZ9.OpWECzXkKPvR_X2WM2W_4N0swqDI3WNhb6-ls3OUjCw"
+normalUserToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTE1YjNkNDAtYzBkZC00NTQ3LTlkYWMtYTJlMDhhODg3Yjc1IiwiaWF0IjoxNzAzODk3NjgwLCJleHAiOjE3MzU0NTUyODB9.k4X1GUgYQ2W9_S-B4soEMcHq4e_jv2LilDmjGQidOHA"
 
-baseURL="http://backend:5000"
+baseURL="http://172.22.0.3:5000"
 game="${baseURL}/game"
 user="/user"
 
@@ -74,7 +74,7 @@ function crearUsuario(){
 
 function loginUserAdmin() {
   curl -X GET "${pathLoginAdminUser}" \
-    -H "Authorization: Bearer ${normalUserToken}"
+    -H "Authorization: Bearer ${adminToken}"
 }
 
 #verifyUserF | json_pp
@@ -83,6 +83,6 @@ function loginUserAdmin() {
 loginUserAdmin | json_pp
 
 # Games
-#listAllGame | json_pp
+#listAllGame
 #userAddOneGame
 #removeGame | json_pp

@@ -1,11 +1,11 @@
 import { LocalStorage } from "./LocalStorage";
 
 export class UserToken {
-	static getToken(): string | undefined {
+	static getToken(): string | boolean {
 		const getToken = new LocalStorage().get({ name: "token" });
 
 		if (getToken === undefined || getToken === null) {
-			return undefined;
+			return false;
 		}
 
 		const token = getToken.token;
