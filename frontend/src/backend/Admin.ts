@@ -16,12 +16,12 @@ export class Admin {
       headers: { Authorization: `Bearer ${token}` },
     })
 
+    if (data.status === 401) return false
     if (data.isError) return false
     if (!data.json) return false
 
     const { authorized } = data.json
 
     return authorized
-
   }
 }
