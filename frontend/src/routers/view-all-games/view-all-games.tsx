@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { Login } from "../login/Login";
 import { GameUser } from "../../backend/GameUser";
 import { AuthUser } from "../../backend/AuthUser";
+import { UserToken } from "@/util/GetToken";
 
 interface Game {
 	gameId: string;
@@ -34,6 +35,10 @@ function Games({ games }: GameData) {
 	useEffect(() => {
 		async function verify() {
 			setAuthorized(await AuthUser.verifyUser())
+		}
+
+		if (!UserToken.getToken()) {
+			return 
 		}
 
 		verify()

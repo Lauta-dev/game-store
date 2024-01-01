@@ -10,6 +10,10 @@ export class Admin {
   static async isAdmin() {
     const token = UserToken.getToken()
 
+    if (!token) {
+      return
+    }
+
     const data: asd = await fetching({
       url: authBackendPath.verifyAdmin,
       method: "GET",

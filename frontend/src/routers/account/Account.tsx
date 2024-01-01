@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { fetching } from "../../util/fetch";
 import { UserToken } from "../../util/GetToken";
 import { Listgame } from "../../interfaces/ListGame";
 import { Table } from "./Table";
@@ -42,7 +41,7 @@ export function Account() {
 
 	if (!token) {
 		// Vuelve a al página de inicio
-		useLocation()[1]("/");
+		useLocation()[1]("/app");
 		return;
 	}
 

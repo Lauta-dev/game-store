@@ -12,6 +12,7 @@ const port = 5000;
 const server = `http://${dockerContainerIPAddress}:${port}`;
 const user = `${server}/auth`;
 const game = `${server}/game`;
+const users = `${server}/user`
 
 const authBackendPath = {
 	login: `${user}/login`,
@@ -27,4 +28,19 @@ const gameBackendPath = {
 	removeGameFromDb: `${game}/remove`
 };
 
-export { authBackendPath, gameBackendPath };
+const admin = {
+	getAllUsers: (take?: number) => take ? `${users}/all?take=${take}` : `${users}/all`,
+	deleteUser: `${users}/delete`
+}
+
+
+/* Routas de mi app */
+const myRouters = {
+	home: "/app",
+	account: "/app/account",
+	createAccount: "/app/create",
+	admin: "/admin"
+}
+
+
+export { authBackendPath, gameBackendPath, admin, myRouters };

@@ -8,11 +8,11 @@ token2="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMjczNjExNjktOTRiOC00Njg
 
 tokenl="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMDk3Y2I4ZmEtMWU1OC00MTBmLWJkODQtNjVhNGU2N2U3MmNhIiwiaWF0IjoxNzAzMjczMzY3LCJleHAiOjE3MzQ4MzA5Njd9.x4Q8kmNat3CWv5v3qikSGcAUtjr_7gGcr1AAO4-71hU"
 
-adminToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiODE5ZjJhYTUtYTZhYi0xMWVlLThhMjktMDI0MmFjMTMwMDAyIiwiaWF0IjoxNzAzODk3Nzg0LCJleHAiOjE3MzU0NTUzODR9.HK5_Y_zk367E7kGkb0KgoMJgpnH0V7TCH0Copw8SBHQ"
+adminToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiODE5ZjJhYTUtYTZhYi0xMWVlLThhMjktMDI0MmFjMTMwMDAyIiwiaWF0IjoxNzA0MDQ1OTAyLCJleHAiOjE3MzU2MDM1MDJ9.EaK8kYtBgUIfVY9ZwmpJTMDclffLQR4hlFX_BqgCBbc"
 
 normalUserToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiOTE1YjNkNDAtYzBkZC00NTQ3LTlkYWMtYTJlMDhhODg3Yjc1IiwiaWF0IjoxNzAzODk3NjgwLCJleHAiOjE3MzU0NTUyODB9.k4X1GUgYQ2W9_S-B4soEMcHq4e_jv2LilDmjGQidOHA"
 
-baseURL="http://172.22.0.3:5000"
+baseURL="http://172.22.0.2:5000"
 game="${baseURL}/game"
 user="/user"
 
@@ -26,6 +26,11 @@ addGameURL="${baseURL}/game/save"
 pathLoginAdminUser="${baseURL}/auth/admin"
 
 gameid="d1e6ff54-9883-11ee-a09a-0242ac170002"
+
+# User paths
+users="${baseURL}/user"
+getAllUsers="${users}/all"
+removeOneUser="${users}/delete"
 
 function removeGame() {
   curl \
@@ -77,10 +82,26 @@ function loginUserAdmin() {
     -H "Authorization: Bearer ${adminToken}"
 }
 
+getAllUsersF() {
+  curl -X GET "${getAllUsers}" \
+    -H "Authorization: Bearer ${adminToken}"
+}
+
+removeOneuserF() {
+  curl -s -X DELETE "${removeOneUser}" \
+    -H "Authorization: Bearer ${adminToken}" \
+    -H "Content-Type: application/json" \
+    -d '{ "userId": "0ac33da6-a77d-11ee-919c-0242ac130002" }'
+}
+
+# User
+#getAllUsersF
+removeOneuserF
+
 #verifyUserF | json_pp
 #loginFunction | json_pp
 #crearUsuario | json_pp
-loginUserAdmin | json_pp
+#loginUserAdmin | json_pp
 
 # Games
 #listAllGame

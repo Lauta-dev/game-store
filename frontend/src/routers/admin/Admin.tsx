@@ -1,39 +1,28 @@
-import { useEffect, useState } from "react";
-import { Route, Router } from "wouter";
-import { Admin } from "../../backend/Admin";
+import { Router, useLocation } from "wouter";
 import { Users } from "./Users";
-import { TableUser } from "./components/Table";
-
-function AdminAccess() {
-  return (
-    <>
-      <Users />
-    </>
-  )
-}
+import { useAdmin } from "@/hook/isAdmin";
+import { RouterAdmin } from "./Routers";
 
 export function AdminPath() {
-  const [isAdmin, setIsAdmin] = useState<boolean>()
+  const { isAdmin, loading } = useAdmin()
 
-  useEffect(() => {
-    async function admin() {
-      return setIsAdmin(await Admin.isAdmin())
-    }
-
-    admin()
-  }, [])
+  if (!useLocation()[0].startsWith("/admin")) {
+    return
+  }
 
   return (
     <Router base="/admin">
-      {
-        isAdmin
-          ? <>
-            <AdminAccess />
-            <Route path="/users" component={TableUser} />
-          </>
-          : isAdmin === undefined || isAdmin === null ? null : "NO"
-      }
+      {!loading && "Cargando"}
+      {loading && !isAdmin && "No tenes permiso de esta aca"}
+      
+      {isAdmin && loading && (
+        <>
+          <Users />
+          <RouterAdmin />
+        </>
+      )}
 
+  
     </Router>
   )
 }
