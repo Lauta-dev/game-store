@@ -29,10 +29,9 @@ const gameBackendPath = {
 };
 
 const admin = {
-	getAllUsers: (take?: number) => take ? `${users}/all?take=${take}` : `${users}/all`,
+	getAllUsers: (take?: number) => take ? `${users}/all/${take}` : `${users}/all`,
 	deleteUser: `${users}/delete`
 }
-
 
 /* Routas de mi app */
 const myRouters = {

@@ -65,7 +65,7 @@ export class UserService {
       },
 
       // Sentencia LIMIT de SQL
-      take: take ? 5 + take : 5
+      take: take ? take : 5
     }
 
     const users = await this.userEntity.find(findOpt)
@@ -82,6 +82,8 @@ export class UserService {
     }))
 
     const head = CreateHeadInTable(newUsers)
+
+    console.log(newUsers)
 
     return {
       users: newUsers.filter(data => data.userId !== uuid),

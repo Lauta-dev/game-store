@@ -9,8 +9,18 @@ export class UserController {
 
   /* Obtener todos los usuarios */
   @UseGuards(AuthGuard)
-  @Get("/all")
+  @Get("/all/:take")
   async all(
+    @Req() req: RequestWithJWTInfo,
+    @Param() param: { take: number }  
+  ) {
+    const { uuid } = req.user
+    return await this.service.allUsers(uuid, param.take)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get("/all")
+  async a(
     @Req() req: RequestWithJWTInfo,
     @Param() param: { take: number }  
   ) {

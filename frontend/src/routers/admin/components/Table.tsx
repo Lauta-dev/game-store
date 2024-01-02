@@ -14,14 +14,6 @@ import { fetching } from "@/util/fetch"
 import { useEffect, useState } from "react"
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -47,11 +39,12 @@ export function TableUser() {
   const [tableHeader, setTableHeader] = useState<string[]>([])
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [user, setUser] = useState<UserData>()
+  const [limitInSQL, setLimitInSQL] = useState<number>(5)
   const token = UserToken.getToken()
 
-  async function getUsers() {
+  async function getUsers(take?:number) {
     const data = await fetching({
-      url: admin.getAllUsers(),
+      url: admin.getAllUsers(take),
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -59,7 +52,6 @@ export function TableUser() {
     setUsers(data.json.users)
     setTableHeader(data.json.tableHead)
   }
-
 
   useEffect(() => {
     getUsers()
@@ -95,10 +87,15 @@ export function TableUser() {
     setUsers(users)
   }
 
+
   return (
     <>
       <section>
-        <Button>Cargar más usuarios</Button>
+        <Button onClick={() => { 
+          setLimitInSQL(limitInSQL + 5)
+          console.log(limitInSQL)
+          getUsers(limitInSQL)
+        }}>Cargar más usuarios</Button>
         <Button>Cargar todos los usuarios</Button>
       </section>
 
@@ -136,8 +133,6 @@ export function TableUser() {
               </TableCell>
               
             </TableRow>
-
-
           ))}
         </TableBody>
         <TableCaption>Cantidad de usuarios: {users.length}</TableCaption>
