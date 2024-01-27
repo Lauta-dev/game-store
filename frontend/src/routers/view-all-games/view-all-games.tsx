@@ -88,7 +88,7 @@ function Games({ games }: GameData) {
 
 							<td className="px-4 py-3">{data.console.toUpperCase()}</td>
 
-							<td className="px-4 py-3">{data.releaseYear}</td>
+							<td className="px-4 py-3">{data.releaseYear.toString()}</td>
 
 							<td className="px-4 py-3">
 								<button
