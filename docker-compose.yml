@@ -6,20 +6,17 @@ services:
       context: ./backend
       dockerfile: Dockerfile
 
-
     container_name: nest
-    # Lautaro del futuro, NO TOQUES ESTO
-    # Para que dos contenedores se intercambien información en necesario que AMBÓS tengan ls red
     networks:
       - db
-      - backend # <-- SI O SI este debe conincidir con la base de datos o cualquier contenedor que se conecte al backend
+      - backend 
       - frontend
       - server
 
     ports:
       - 3000:5000
 
-    command: ls node_modules
+    command: npm run start:dev
 
   db:
     build:
@@ -42,9 +39,12 @@ services:
 
   frontend:
     container_name: react
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
 
     networks:
-      - backend # <-- SI O SI este debe conincidir con la base de datos o cualquier contenedor que se conecte al backend
+      - backend
       - frontend
 
     ports:
@@ -53,27 +53,7 @@ services:
     depends_on:
       - backend
 
-    #command: npm run dev
-
-  # Levantar servicio
-  nginx:
-    image: "nginx:1.25.3-alpine"
-    container_name: "server"
-    
-    volumes:
-      - ./frontend/dist/:/usr/share/nginx/html:ro
-      - ./frontend/node_modules/:/usr/share/nginx/html/node_modules
-   
-    ports:
-      - "8080:80"
-
-    environment:
-      - NGINX_HOST=lauta.com
-      - NGINX_PORT=80
-
-    networks:
-      - backend # <-- SI O SI este debe conincidir con la base de datos o cualquier contenedor que se conecte al backend
-      - server
+    command: npm run dev
 
 volumes:
   mysql:

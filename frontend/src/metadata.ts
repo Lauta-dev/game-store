@@ -6,40 +6,40 @@
  *
  * Esto se ve usando docker inspect "nombre del contenedor"
  */
-const dockerContainerIPAddress = "172.22.0.3";
+const dockerContainerIPAddress = "nest";
 const port = 5000;
 
 const server = `http://${dockerContainerIPAddress}:${port}`;
 const user = `${server}/auth`;
 const game = `${server}/game`;
-const users = `${server}/user`
+const users = `${server}/user`;
 
 const authBackendPath = {
 	login: `${user}/login`,
 	create: `${user}/create`,
 	verify: `${user}/verify`,
-	verifyAdmin: `${user}/admin`
+	verifyAdmin: `${user}/admin`,
 };
 
 const gameBackendPath = {
 	getAllGames: `${game}`,
 	saveGame: `${game}/save`,
 	getGameXUser: `${game}/one`,
-	removeGameFromDb: `${game}/remove`
+	removeGameFromDb: `${game}/remove`,
 };
 
 const admin = {
-	getAllUsers: (take?: number) => take ? `${users}/all/${take}` : `${users}/all`,
-	deleteUser: `${users}/delete`
-}
+	getAllUsers: (take?: number) =>
+		take ? `${users}/all/${take}` : `${users}/all`,
+	deleteUser: `${users}/delete`,
+};
 
 /* Routas de mi app */
 const myRouters = {
 	home: "/app",
 	account: "/app/account",
 	createAccount: "/app/create",
-	admin: "/admin"
-}
-
+	admin: "/admin",
+};
 
 export { authBackendPath, gameBackendPath, admin, myRouters };
