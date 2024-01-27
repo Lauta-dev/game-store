@@ -96,7 +96,7 @@ removeOneuserF() {
 
 # User
 #getAllUsersF
-removeOneuserF
+#removeOneuserF
 
 #verifyUserF | json_pp
 #loginFunction | json_pp
@@ -104,6 +104,6 @@ removeOneuserF
 #loginUserAdmin | json_pp
 
 # Games
-#listAllGame
+listAllGame
 #userAddOneGame
 #removeGame | json_pp
