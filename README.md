@@ -9,6 +9,3 @@ El proyecto se ejecuta en 3 contenedores de **Docker**:
 - nest: **Backend con NestJS**
 - react: **Frontend con ReactJS**
 - db: **mysql la base de datos**
-
-## Read
-
